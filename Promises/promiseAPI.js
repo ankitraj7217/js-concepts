@@ -52,11 +52,36 @@ const slowFetch = (url) => {
     });
 };
 
+/**
+ * what will check return? still a promise?
+
+ChatGPT
+Yes, even if there's a .catch() method in the Promise chain,
+ the check() function will still return a Promise. 
+ However, if there's an error during the fetching process and the .catch() method handles it, 
+ the returned Promise will resolve with the value returned by the .catch() method. 
+ If there's no error, the Promise will resolve with the value returned by the last .then() method in the chain.
+
+User
+so, promise will resolve and not reject?
+ChatGPT
+That's correct. 
+If there's an error during the fetching process and it's caught by a .catch() method, 
+the Promise will still resolve, not reject. 
+This means that the Promise chain will continue execution, 
+and the value returned by the .catch() method will be the resolved value of the Promise. 
+This behavior ensures that the Promise is always settled, either with a resolved value or with a rejected value (if an uncaught error occurs).
+
+
+
+
+/**
+ * 
+ */
 const fetchDataWithUrl = (url) => {
     return fetch(url)
         .then(response => response.json())
         .then(data => ({ data, url }))
-        .catch(error => ({ error, url }));
 };
 
 
