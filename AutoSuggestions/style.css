@@ -1,0 +1,22 @@
+main {
+    width: 20rem;
+    display: flex;
+    flex-direction: column;
+}
+
+/* 
+span {
+    width: 20rem;
+    border: 1px solid black;
+} */
+input {
+    width: inherit;
+}
+
+.suggestions {
+    width: inherit;
+    height: 20rem;
+    border: 1px solid black;
+    display: none;
+    /* visibility: hidden; */
+}
