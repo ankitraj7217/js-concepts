@@ -33,20 +33,20 @@ function CustomPromise(executor) {
     // Method to add a then handler
     this.then = function(callback) {
         // Return a new promise to enable chaining
-        return new CustomPromise((resolve, reject) => {
+        return new CustomPromise((res, rej) => {
             function handle(value) {
                 try {
                     const result = callback(value); // Execute the callback
                     if (result instanceof CustomPromise) {
                         // If the result is a promise, wait for it to resolve
-                        result.then(resolve).catch(reject);
+                        result.then(res).catch(rej);
                     } else {
                         // Otherwise, resolve with the result
-                        resolve(result);
+                        res(result);
                     }
                 } catch (err) {
                     // If an error occurs, reject the promise
-                    reject(err);
+                    rej(err);
                 }
             }
 
@@ -63,20 +63,20 @@ function CustomPromise(executor) {
     // Method to add a catch handler
     this.catch = function(callback) {
         // Return a new promise to enable chaining
-        return new CustomPromise((resolve, reject) => {
+        return new CustomPromise((res, rej) => {
             function handleError(err) {
                 try {
                     const result = callback(err); // Execute the callback
                     if (result instanceof CustomPromise) {
                         // If the result is a promise, wait for it to resolve
-                        result.then(resolve).catch(reject);
+                        result.then(res).catch(rej);
                     } else {
                         // Otherwise, resolve with the result
-                        resolve(result);
+                        res(result);
                     }
                 } catch (err) {
                     // If an error occurs, reject the promise
-                    reject(err);
+                    rej(err);
                 }
             }
 
