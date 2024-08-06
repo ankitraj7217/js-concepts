@@ -1,0 +1,58 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  :root {
+    --progress-bar-width: 200px;
+    --progress-bar-height: 200px;
+    --font-size: 2rem;
+  }
+  
+  .outer {
+      width: 100px;
+      height: 100px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      /* background-color: grey;
+      background: conic-gradient(red 0deg, white 0deg); */
+      background: repeating-conic-gradient(
+          red 0deg 15deg, /* First stripe color and range */
+          white 15deg 30deg /* Second stripe color and range */
+      );
+      border-radius: 50%;
+  }
+  
+  .inner {
+      width: 80px;
+      height: 80px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: white;
+      border-radius: 50%;
+      box-shadow: inset 0px 0px 4px black; 
+      /* This box-shadow has several parts. Let's go through each part:
+  
+          inset:
+  
+          This keyword makes the shadow an inner shadow. Without inset, the shadow would be an outer shadow.
+          0px (horizontal offset):
+  
+          This value sets the horizontal distance of the shadow. 0px means the shadow will be directly behind the element horizontally (no shift to the left or right).
+          0px (vertical offset):
+  
+          This value sets the vertical distance of the shadow. 0px means the shadow will be directly behind the element vertically (no shift up or down).
+          4px (blur radius):
+  
+          This value sets the blur radius of the shadow. 4px means the shadow will be blurred by 4 pixels. A higher value makes the shadow more blurred and softer, while a lower value makes it sharper.
+          0px (spread radius):
+  
+          This value sets the spread radius of the shadow. 0px means the shadow size will not change. Positive values make the shadow bigger, while negative values make it smaller.
+          black (color):
+  
+          This value sets the color of the shadow. In this case, the shadow will be black. */
+  
+  }
