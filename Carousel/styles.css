@@ -1,0 +1,24 @@
+
+
+.carousel {
+    display: flex;
+    overflow-x: scroll;
+    /* overflow: hidden; */
+    --check: 1rem;
+    overscroll-behavior-inline: contain;
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* Internet Explorer 10+ */
+    -webkit-scrollbar: none;
+}
+
+.carousel-child {
+    flex: 0 0 auto;
+    width: 12rem;
+    height: 12rem;
+    border: 1px solid black;
+    margin-inline: var(--check);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
