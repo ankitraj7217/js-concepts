@@ -1,0 +1,23 @@
+#draggable {
+    width: 10rem;
+    height: 10rem;
+    border: 1px solid black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    position: absolute;
+    z-index: 1;
+}
+
+#container {
+    width: 20rem;
+    height: 20rem;
+    border: 1px solid black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 25rem;
+    left: 25rem;
+}
