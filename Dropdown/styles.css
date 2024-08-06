@@ -1,0 +1,33 @@
+.dropdown {
+    display: flex;
+    flex-direction: column;
+    margin-inline: 2rem;
+    border: 1px solid black;
+}
+
+.dropdown-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: grey;
+    padding-inline: 1rem;
+}
+
+.dropdown-header__toggle {
+    cursor: pointer;
+}
+
+.dropdown-detail {
+    padding-inline: 1rem;
+    margin: 0rem;
+    max-height: 0rem;
+    opacity: 0;
+    overflow: hidden;
+    transition: max-height 0.2s ease-in-out, opacity 0.2s ease-in-out;
+}
+
+.dropdown-detail.open {
+    padding: 0.5rem;
+    opacity: 1;
+    max-height: 10rem;
+}
