@@ -1,0 +1,20 @@
+React Inside -
+   a - useMemo, useCallback, memo
+   b - CodeSplitting -> Lazy Loading, Suspense
+   c - Virtualize Long List
+   d - Debounce and Throttle
+   e - useContext instead of prop drilling in case of large prop drilling
+   f - Use Abort Controller
+   g - Use React Fragments
+
+Network / Images -
+    a - 304, cache-control
+    b - lazy load images
+    c - use HTTP/2 or /3
+    d - use avif or webp or svg
+    e - Adaptive Image Loading (based on height, width, etc)
+    g - Use CDN
+    h - Web Workers
+    i - Service Workers
+    j - Avoid Long Polling, Use SSE or websockets
+
