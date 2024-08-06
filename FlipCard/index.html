@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="styles.css" />
+        <title>Flip Card</title>
+    </head>
+
+    <body>
+        <header tabindex="0">
+            <h1>Flip Card</h1>
+        </header>
+
+        <main>
+            <div class="card-container" tabindex="-1" aria-label="Card Container. Press space to flip card.">
+                <div class="front-card card" tabindex="0" aria-label="You are viewing front card">Front</div>
+                <div class="back-card card" tabindex="0" aria-label="You are viewing back card">Back</div>
+            </div>
+        </main>
+
+        <script src="script.js" type="module"></script>
+    </body>
+</html>
