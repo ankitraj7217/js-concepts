@@ -1,0 +1,14 @@
+#loader {
+    border: 16px solid grey;
+    border-top: 16px solid blue;
+    border-radius: 50%;
+    width: 10rem;
+    height: 10rem;
+    animation: loaderInfo 2s ease-in-out infinite;
+}
+
+@keyframes loaderInfo {
+    0% {transform: rotate(0deg);}
+    100% {transform: rotate(360deg);}
+}
+
