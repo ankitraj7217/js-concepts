@@ -1,0 +1,70 @@
+class Singleton {
+    constructor() {
+        if (!Singleton.instance) {
+            Singleton.instance = this;
+        }
+        return Singleton.instance;
+    }
+
+    getData() {
+        return 'This is some data from the singleton instance.';
+    }
+}
+
+// Usage
+const singletonInstance1 = new Singleton();
+const singletonInstance2 = new Singleton();
+
+console.log(singletonInstance1 === singletonInstance2); // Output: true
+
+console.log(singletonInstance1.getData()); // Output: This is some data from the singleton instance.
+console.log(singletonInstance2.getData()); // Output: This is some data from the singleton instance.
+
+
+
+Sure, here's a simple example of the Singleton Pattern implemented in JavaScript:
+
+```javascript
+const Singleton = (function() {
+    let instance; // Private variable to hold the singleton instance
+    
+    function createInstance() {
+        // Private method to create the singleton instance
+        return {
+            // Public method to get some data
+            getData: function() {
+                return 'This is some data from the singleton instance.';
+            }
+        };
+    }
+    
+    return {
+        // Public method to get the singleton instance
+        getInstance: function() {
+            if (!instance) {
+                instance = createInstance();
+            }
+            return instance;
+        }
+    };
+})();
+
+// Usage
+const singletonInstance1 = Singleton.getInstance();
+const singletonInstance2 = Singleton.getInstance();
+
+console.log(singletonInstance1 === singletonInstance2); // Output: true
+
+console.log(singletonInstance1.getData()); // Output: This is some data from the singleton instance.
+console.log(singletonInstance2.getData()); // Output: This is some data from the singleton instance.
+```
+
+In this example:
+
+- We use an Immediately Invoked Function Expression (IIFE) to create a closure to encapsulate the Singleton.
+- Inside the closure, we have a private variable `instance` to hold the singleton instance.
+- We also have a private method `createInstance()` to create the singleton instance.
+- The `getInstance()` method is the public interface for accessing the singleton instance. It checks if the instance already exists; if not, it creates a new instance using `createInstance()` and returns it.
+- Since JavaScript doesn't have built-in support for private members, we simulate private members using closures. This ensures that only one instance of the Singleton is created and returned whenever `getInstance()` is called.
+
+This Singleton Pattern ensures that only one instance of the object is created and that subsequent calls to `getInstance()` return the same instance.
