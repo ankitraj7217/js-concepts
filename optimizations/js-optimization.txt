@@ -1,0 +1,9 @@
+1. defer vs async
+
+2. <script type="module"> -> is same as defer
+    <script type="async"> -> useless
+
+3. web worker -> so that main thread is not blocked
+    Avoid DOM manipulation here -> as communication takes time and user wants it instantly
+
+4. use setTimeout stuff to do some work and then come back

@@ -1,0 +1,60 @@
+1. Compression
+
+2. Progressive Enhancement:
+    <picture>
+        <source srcset="photo.avif" type="image/avif">
+        <source srcset="photo.webp" type="image/webp">
+        <img src="photo.jpg" alt="Photo" />
+    </picture>
+
+3. Hint
+    DPR -> Device Pixel Ratio
+    Every device has a different DPR
+    Higher resolution devices have higher DPR
+
+    var scale = window.devicePixelRatio   // Code
+    How to leverage it:
+        <img src="photo.jpeg"
+            srcset="baby-highres 2x,
+                    baby-3 3x
+            "
+        />
+    Breakpoints:
+        <img srcset="baby-s.jpg 300w,
+                     baby-m.jpg 600w,
+                    baby-l.jpg 1200w
+                    "
+            sizes="
+                (min-width: 2420em) 2000px,
+                (min-width: 720em) 33.3vw,
+                100vw"
+            src="baby.jpg"
+            alt="Baby"
+        />
+        Whatever size is computed, based on that a srcset is selected..if not, default back to src.
+
+    <picture>
+        <source srcset="abc.jpg" media="(min-width: 1000px)" />
+        <source srcset="def.jpg" media="(min-width: 700px)" />
+    </picture>
+
+4. Adaptive Media Loading:
+    based on device memory size and network capacity:
+    1. navigator.connector.saveData  // if saveData mode is on, on device
+    2. navigator.deviceMemory
+    3. navigator.hardwareConcurrency
+
+5. Concurrent works -> web workers
+
+6. Small Images with blur effect -> have similar gradient of image
+    filter: blur(5px)
+    -webkit-filter: blur(5px)
+
+7. show primary color as background and then show image
+
+8. CSS Sprites
+    huge set of data in single image - save n/w request and data
+
+9. Use data-src, and then using intersection observer, convert it to src.
+
+    

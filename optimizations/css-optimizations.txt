@@ -1,0 +1,25 @@
+If don't optimize, web vitalas compromised and rendering too
+
+1. Critical CSS Rendering:
+    
+2. Lazy Loading of CSS:
+    <link href="style.css" rel="stylesheet" media="all">
+    <link href="protrait.css" rel="stylesheet" media="(orientation: portrait)">
+
+3. When to load other CSS apart from:
+    <script>
+        (function() {
+            var cssMain = document.createElement("link");
+            cssMain.href="/css/main.css";
+            cssMain.rel = "stylesheet";
+            cssMain.type= "type/css";
+            document.getElementsByTagName("head")[0].appendChild(cssMain);
+        })();
+    </script>
+
+    <link rel="preload" href="style.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+        <link rel="stylesheet" href="style.css">
+    </noscript>
+
+4. Use styled components in js for React as when component loads, CSS loads too.

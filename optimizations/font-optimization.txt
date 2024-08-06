@@ -1,0 +1,29 @@
+Blogging website
+
+1. Font Display Descriptor
+    - FOUT -> Flash unstyled text first and then, it will load the actual Font
+    - FOIT -> Once font gets loaded, show the font
+
+    @font-face {
+        font-family: "MyWebFont";
+        src: url("") format(""),
+            url("") format("");  // have backup -> progressive enhancement
+        font-dispay: "swap"; // FOUT case
+    }
+
+2. Data URI: in src above -> entire url with encoding like base64
+
+3. Preload:
+    <link rel="preload" href="font.woff2" as="font" type="font/woff2" crossorigin>
+
+4. Asynchronously loading stylesheet
+    <link rel="stylesheet"
+        href="$CSS&display=swap"
+        media="print"
+        onload="this.media='all'" -> on loading -> swap the media to all
+    />
+
+5. Font face observer:
+    once font is loaded -> can replace className where this font is loaded
+
+

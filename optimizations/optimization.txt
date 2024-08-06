@@ -1,0 +1,215 @@
+1. 
+    content-visibility: auto
+    contain-intrinsic-size: 1800px; -> let browser figure out what is size to load better
+
+    `content-visibility` is a CSS property introduced to help improve the rendering performance of web pages, especially for content-heavy or dynamically generated content. It allows developers to control the visibility and rendering of elements, enabling the browser to skip rendering off-screen or hidden content until it becomes visible in the viewport.
+
+    Here's how `content-visibility` works and how it leads to performance improvements:
+
+    1. **Lazy Rendering**:
+    - By default, browsers render all elements in the DOM, even if they are not currently visible in the viewport. This can lead to unnecessary rendering work and performance overhead, especially for large documents or lists with many items.
+    - With `content-visibility`, you can instruct the browser to lazily render elements as they become visible in the viewport, rather than rendering them all upfront.
+    - When an element with `content-visibility: auto` is scrolled into view, the browser will dynamically render it, improving initial page load times and reducing the amount of work needed during rendering.
+
+    2. **Skipping Layout and Paint Phases**:
+    - One of the key benefits of `content-visibility` is that it allows the browser to skip the layout and paint phases for off-screen or hidden elements.
+    - Elements with `content-visibility: auto` are rendered without affecting the layout or dimensions of surrounding elements, as their size and position are not taken into account until they are actually rendered.
+    - This leads to faster rendering performance, as the browser can avoid costly layout calculations and painting operations for content that is not currently visible to the user.
+
+    3. **Improved Scrolling Performance**:
+    - `content-visibility` can significantly improve scrolling performance, especially on pages with large lists or grids of items.
+    - By lazily rendering items as they come into view, the browser can maintain a smooth scrolling experience without being bogged down by the rendering of off-screen content.
+    - This results in faster and more responsive scrolling, particularly on devices with limited resources or slower CPUs.
+
+    Overall, `content-visibility` is a powerful tool for optimizing rendering performance and improving the user experience, particularly for content-heavy web pages or web applications with dynamic content. However, it's important to use it judiciously and consider its impact on browser compatibility and accessibility.
+
+2. 
+    serving critical css
+    above the fold -> segregate in diff files.
+                   -> rest can be downloaded later
+    <link rel="stylesheet" href="critical.css" />
+    <link rel="stylesheet" href="full.css" media="print" onload="this.media='all'" />
+
+3. Resource Hinting -> Hint to browser that these are the resources and the priority order kinda
+    preload -> <link rel="preload" href="styles.css" as="style" />
+    prefetch -> i want to load, but don't want to execute now
+    preconnect -> done handshake beforehand
+    dns-prefetch -> handshake and on old browser
+    prerender -> create hidden tab content -> load page including JS execution -> throw hidden tab away -> swap in hidden tab
+                 (most visited page) (but, be very sure -> in low bandwidth -> so can waste data)
+    modulepreload -> import and leverage those module -> download, cache and compile
+                  -> can use from service worker as well.
+    
+4. Service Worker
+    something like proxy server between website and internet
+    push notification, caching -> any request goes to service worker -> check cache or go to network (useful in PWA)
+    Worker lifecycle:
+        a. Installing
+        b. Installed
+        c. Activating
+        d. Activated
+        e. Redundant
+    Workbox / React-Query
+
+5. Compression
+    Brotli vs gzip  (Browser knows how to decode it)
+    Response Headers -> content-encoding: gzip or br
+                        content-length: 38909
+
+    Some browser don't understand brottli
+    Add mechanism where browser sends which one compression it understands
+
+6. reflow -> repaint -> composting (last phase, different layer, z-index, position: absolute)
+   try to avoid reflow
+   even read operation is costly -> as we are reading latest value
+   transform and opacity removes reflow and repaint -> directly jump to composting
+
+   Transform and opacity are CSS properties that can be hardware-accelerated by modern browsers. When applied to an element, these properties can often be computed by the browser's GPU (Graphics Processing Unit) rather than the CPU (Central Processing Unit). This allows the browser to perform certain optimizations, including skipping the reflow and repaint phases and directly applying the transformations during the compositing phase.
+
+    Here's why transform and opacity can skip reflow and repaint and go directly to compositing:
+
+    1. **Transform Property**:
+    - When you apply a transform to an element (e.g., `transform: translateX(100px)`), the browser doesn't need to recalculate the layout (reflow) or repaint the element.
+    - Instead, the browser can simply update the transformation matrix associated with the element and instruct the GPU to render the element with the new transformation applied.
+    - Because the transform doesn't affect the layout or dimensions of the element's box, the browser can skip the reflow and repaint phases and go directly to compositing, resulting in smoother and more efficient rendering.
+
+    2. **Opacity Property**:
+    - Similarly, when you apply opacity to an element (e.g., `opacity: 0.5`), the browser doesn't need to recalculate the layout or repaint the element.
+    - Instead, the browser can adjust the opacity value of the element's pixels directly in the GPU memory without affecting the layout or dimensions of the element.
+    - Since opacity changes only the appearance of the element and not its position or size, the browser can skip the reflow and repaint phases and proceed directly to compositing.
+
+    By leveraging hardware acceleration and optimizing the rendering pipeline, modern browsers can achieve better performance and smoother animations when applying transforms and opacity. However, it's important to note that not all CSS properties can be hardware-accelerated, and excessive use of transformations or opacity can still impact performance if overused.
+    Frame rate -> 60Hz -> 1 / 60 -> 16.67 frames in a second. (That much refresh)
+
+7. loading -> lazy and eager:
+    Let me clarify how eager loading works and why it might be used even for images that are not immediately visible in the viewport.
+
+    ### Eager Loading Explained
+
+    **Eager loading** means that the browser will start downloading and rendering the image as soon as it encounters the `<img>` tag in the HTML, regardless of whether the image is currently visible in the viewport (the part of the web page that is visible to the user without scrolling).
+
+    ### How It Works
+
+    1. **HTML Parsing:**
+    - As the browser parses the HTML document, it encounters the `<img>` tag with `loading="eager"`.
+    - The browser immediately begins to fetch and load the image file from the server.
+
+    2. **Rendering:**
+    - The browser will render the image as soon as it is downloaded and ready, even if the image is positioned below the fold (i.e., not initially visible in the viewport).
+    - This ensures that by the time the user scrolls down to where the image is placed, it is already loaded and displayed without delay.
+
+    ### Example Scenario
+
+    Consider a blog page with a hero image at the top and several images interspersed throughout the content. If these images are marked with `loading="eager"`, the browser will start loading all these images immediately as it parses the HTML.
+
+    ### Why Use Eager Loading?
+
+    1. **Ensuring Immediate Availability:**
+    - **Above-the-Fold Content:** For images that are crucial to the initial user experience and are immediately visible when the page loads, eager loading ensures these images are loaded as quickly as possible.
+    - **Near the Fold Content:** For images that are just below the initial viewport, eager loading ensures they are available by the time the user starts scrolling.
+
+    2. **Improved User Experience:**
+    - Users expect certain types of content, like product images, hero banners, or gallery thumbnails, to be available without delay as they interact with the page.
+    - Eager loading can prevent noticeable delays or layout shifts when users scroll down and encounter unloaded images.
+
+    3. **Performance Trade-Offs:**
+    - While eager loading can increase the initial load time because more resources are loaded upfront, it ensures a smoother experience as the user navigates through the page.
+    - This can be particularly important on high-bandwidth connections where the slight increase in initial load time is less noticeable than on slow connections.
+
+    ### How It Differs from Lazy Loading
+
+    - **Lazy Loading:** Defers the loading of images until they are about to enter the viewport, optimizing initial load time by not loading images that the user may never scroll to see.
+    ```html
+    <img src="example.jpg" alt="Example Image" loading="lazy">
+    ```
+
+    - **Eager Loading:** Loads images as soon as they are encountered in the HTML, ensuring all images are available quickly, even if they are not immediately visible.
+    ```html
+    <img src="example.jpg" alt="Example Image" loading="eager">
+    ```
+
+    ### When to Use Each
+
+    - **Use `loading="eager"`:**
+    - For images that are essential to the initial rendering of the page.
+    - For images that need to be available immediately as users start scrolling.
+    - In cases where the slight increase in initial load time is acceptable for the sake of user experience.
+
+    - **Use `loading="lazy"`:**
+    - For images that are further down the page and not immediately visible.
+    - To optimize the initial load performance by reducing the number of resources loaded upfront.
+    - On pages with many images or where bandwidth is a concern.
+
+    ### Conclusion
+
+    Eager loading ensures that images are loaded as soon as possible, providing a seamless experience as users interact with the page. While it can slightly increase initial load times, it guarantees that images are ready when needed, thus optimizing the user experience for content that is critical or expected to be immediately available.
+
+    Absolutely, let’s dive into the concepts of lazy loading and eager loading for images, their differences, and how they help in optimization and performance.
+
+    ### Lazy Loading vs Eager Loading
+
+    #### Lazy Loading
+
+    **Definition:**
+    - Lazy loading is a technique that defers the loading of images (or other resources) until they are actually needed, typically when they are about to enter the viewport.
+
+    **How It Works:**
+    - When you set an image to `loading="lazy"`, the browser will postpone loading the image until it is close to being visible in the user's viewport. This means that images further down the page are not loaded until the user scrolls near them.
+
+    **Benefits:**
+    - **Improved Initial Load Time:** Only images visible on the initial screen load, reducing the amount of data that needs to be fetched immediately.
+    - **Reduced Bandwidth Usage:** Less data is loaded upfront, which is especially beneficial for users on slow or limited internet connections.
+    - **Better Performance:** Faster initial page rendering, leading to a better user experience. The browser can prioritize critical resources first.
+
+    **Example:**
+    ```html
+    <img src="example.jpg" alt="Example Image" loading="lazy">
+    ```
+
+    #### Eager Loading
+
+    **Definition:**
+    - Eager loading, by default, loads images as soon as the browser encounters them in the HTML during the initial page load. This is the standard behavior if the `loading` attribute is not specified or is set to `loading="eager"`.
+
+    **How It Works:**
+    - When you set an image to `loading="eager"`, the browser will load the image as soon as it is parsed, regardless of whether it is immediately visible in the viewport.
+
+    **Benefits:**
+    - **Ensures Immediate Availability:** Ensures that all images are available as soon as possible, which can be important for images that are crucial to the initial rendering of the page, such as hero images or images in the viewport.
+
+    **Drawbacks:**
+    - **Slower Initial Load Time:** All images are loaded upfront, which can increase the initial load time, especially for pages with many images.
+    - **Higher Bandwidth Usage:** More data is downloaded immediately, which can be inefficient for users with slow or limited internet connections.
+
+    **Example:**
+    ```html
+    <img src="example.jpg" alt="Example Image" loading="eager">
+    ```
+
+    ### How They Help in Optimization and Performance
+
+    #### Lazy Loading
+    - **Optimizes Load Times:** By delaying the loading of non-critical images, the browser can focus on loading essential resources first.
+    - **Reduces Initial Data Consumption:** Only the necessary images for the initial view are loaded, which is more efficient in terms of data usage.
+    - **Improves User Experience:** Faster initial rendering makes the page feel more responsive and can improve perceived performance.
+
+    #### Eager Loading
+    - **Immediate Image Availability:** Ensures that important images are loaded as soon as possible, which is crucial for the first impression and for ensuring that above-the-fold content is fully visible.
+    - **Better for Certain Use Cases:** For example, in a photo gallery where users expect all images to be quickly accessible without additional loading times as they scroll.
+
+    ### When to Use Each
+
+    - **Use Lazy Loading:**
+    - For images that are not immediately visible when the page loads (e.g., images further down the page).
+    - For optimizing load performance on pages with many images or long-scrolling content.
+    - On pages where minimizing initial load time is a priority.
+
+    - **Use Eager Loading:**
+    - For images that are critical to the initial viewport and user experience (e.g., hero images, banners).
+    - When it is essential that all images are immediately available, such as in slideshows or image-heavy content where quick access is necessary.
+
+    ### Conclusion
+
+    Both lazy loading and eager loading are valuable techniques for optimizing the performance of web pages, but they serve different purposes. Lazy loading is geared towards improving initial load times and reducing bandwidth usage by deferring the loading of off-screen images, while eager loading ensures that critical images are loaded as soon as possible to enhance the initial user experience. Choosing the right loading strategy depends on the specific needs and layout of your web content.
+
+    

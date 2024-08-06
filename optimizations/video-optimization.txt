@@ -1,0 +1,18 @@
+1. Progressive Enhancement:
+    - webm, then mp4
+     <video>
+        <source src="abcd.webm" type="video/webm">
+        <source src="defg.mp4" type="video/mp4">
+     </video>
+
+2. Responsive Poster Image
+    - Till the image is not loaded, show poster image
+    
+3. Streaming
+
+4. Removing audio from video
+
+5. Platform based video dimensions
+    - define Breakpoints via media
+
+6. Preload video and metadata
